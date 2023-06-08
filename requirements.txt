@@ -1,0 +1,7 @@
+altair==5.0.1
+matplotlib==3.7.1
+numpy==1.24.1
+pandas==2.0.2
+scikit-learn==1.2.2
+statsmodels==0.14.0
+xgboost==1.7.4
