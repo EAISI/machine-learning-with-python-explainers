@@ -1,6 +1,11 @@
 altair==5.0.1
+black==23.3.0
+jupyterlab-code-formatter
 fuzzywuzzy
+isort
+jupyterlab
 matplotlib==3.7.1
+notebook==6.5.4
 numpy==1.24.1
 pandas==2.0.2
 pandas_profiling
@@ -8,3 +13,4 @@ requests
 scikit-learn==1.2.2
 statsmodels==0.14.0
 xgboost==1.7.4
+vega @ git+https://github.com/vega/ipyvega/@master
