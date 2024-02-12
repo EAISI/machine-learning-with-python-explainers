@@ -16,8 +16,7 @@ from .f_check_nonnumeric_in_df      import f_check_nonnumeric_in_df
 from .f_clean_up_header_names       import f_clean_up_header_names
 from .f_describe                    import f_describe
 from .f_evaluation_results          import f_evaluation_results
-from .f_freq                        import f_freq
-from .f_get_computer_name           import f_get_computer_name
+from .f_get_account_name            import f_get_account_name
 from .f_get_filenames_in_folder     import f_get_filenames_in_folder
 from .f_get_latest_file             import f_get_latest_file
 from .f_heatmap                     import f_heatmap

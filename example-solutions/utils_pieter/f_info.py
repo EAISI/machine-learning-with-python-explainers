@@ -6,8 +6,9 @@ import pandas as pd
 def f_info(
 
     x,
-    n_top   = 10,
-    n_width = 29
+    n_top       = 10,
+    n_width     = 29,
+    b_show_plot = False,
 ):
 
     """
@@ -15,12 +16,16 @@ def f_info(
 
     Parameters
     ----------
-    x: Pandas Series
+    x               : Pandas Series
         Column in data frame you want to analyse.
-    n_top: int / str
-        Maximum number of items to show. In case you want to see all items, enter 'all'.
-    n_width: int
-        Maximum number of characters to show of the values. This is useful in case the values consist of (long) sentences.
+    n_top           : int
+        Maximum number of items to show. In case you want to see all items,
+        enter None.
+    n_width         : int
+        Maximum number of characters to show of the values.
+        This is useful in case the values consist of (long) sentences.
+    b_show_plot     : bool
+        Whether to show a bar chart of the frequency distribution.
 
     Returns
     -------
@@ -48,19 +53,18 @@ def f_info(
 # ERROR CHECK
 #----------------------------------------------------------------------------------------------------------------------
 
-    if(not isinstance(x, pd.Series) and not isinstance(x, list)):
+    if not isinstance(x, pd.Series) and not isinstance(x, list):
         raise TypeError(f"You provided an invalid type for 'x'; it must be a pandas series or a list.")
 
-
-    if(not isinstance(n_top, int) and n_top != "all"):
-        raise TypeError(f"You provided an invalid type for 'n_top' ('{n_top}'); it must be 'all' or an integer.")
+    if not isinstance(n_top, int) and n_top is not None:
+        raise TypeError(f"You provided an invalid value for 'n_top' ('{n_top}'); it must be an integer.")
 
 
 #----------------------------------------------------------------------------------------------------------------------
 # INITIALIZATION
 #----------------------------------------------------------------------------------------------------------------------
 
-    if(isinstance(x, list)):
+    if isinstance(x, list) :
         l_input = pd.Series(x.copy())
     else:
         l_input = x.copy()
@@ -72,7 +76,7 @@ def f_info(
     n_unique = len(set(l_input))
 
     # Number to show.
-    if(n_top == "all"):        
+    if n_top is None:        
         n_top = n_unique
 
     # We take max of length and 3 to prevent count errors below. Width is at least 3.
@@ -234,3 +238,21 @@ def f_info(
     print(df_basic_info)
     print("\n  " + c_freq_table + " "*(n_width + n_char_count - len(c_freq_table)) + "n  perc")
     print(df_freq)
+
+
+    ###########################################################################
+    # Show frequency plot.
+    ###########################################################################
+
+    if b_show_plot:
+
+        # Plot frequency n_top elements.
+        ax = l_input.value_counts(sort = True, ascending = False)[0:n_top].plot(kind='barh')
+        ax.invert_yaxis()
+
+        # https://stackoverflow.com/questions/3899980/how-to-change-the-font-size-on-a-matplotlib-plot
+        for item in (ax.get_xticklabels() + ax.get_yticklabels()):
+            item.set_fontsize(20)
+
+        for item in [ax.xaxis.label, ax.yaxis.label]:
+            item.set_fontsize(20 + 4)

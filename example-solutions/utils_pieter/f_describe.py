@@ -45,7 +45,7 @@ def f_describe(df_input, n_top = 10):
         print(f"-> Integer columns:  {f_join(np.sort(df_integer.columns))}.\n")
     
     if len(df_floating.columns):
-        print(f"-> Floating columns: {f_join(np.sort(df_floating.columns))}.\n")
+        print(f"-> Float columns:    {f_join(np.sort(df_floating.columns))}.\n")
     
     if len(df_category.columns):
         print(f"-> Category columns: {f_join(np.sort(df_category.columns))}.\n\n")

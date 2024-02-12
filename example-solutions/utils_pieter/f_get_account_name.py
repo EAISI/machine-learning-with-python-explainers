@@ -2,10 +2,10 @@
 import os
 
 # Define function.
-def f_get_computer_name():
+def f_get_account_name():
 
     """
-    Get name of this computer.
+    Get name of the account.
 
     Parameters
     ----------
@@ -14,7 +14,7 @@ def f_get_computer_name():
     Returns
     -------
     str
-        Computer name.
+        Account name.
     """
 
     # Machine name of computer.
@@ -22,12 +22,10 @@ def f_get_computer_name():
     
     # Computer name.
     if C_MACHINE_NAME in ['Pieters-Mac-Studio.local']:
-        C_COMPUTER_NAME = 'macstudio'
+        return 'macstudio'
     
     elif C_MACHINE_NAME in ['Pieters-MacBook-Pro.local', 'Pieters-MBP', 'pieters-mbp.home']:
-        C_COMPUTER_NAME = 'macbookpro'
+        return 'home'
 
     else:
-        raise ValueError('Unknown machine name, cannot determine C_COMPUTER_NAME')
-        
-    return C_COMPUTER_NAME
+        raise ValueError('Unknown machine name, cannot determine C_ACCOUNT_NAME')
