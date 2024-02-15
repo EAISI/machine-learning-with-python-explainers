@@ -1,16 +1,15 @@
 # Import module.
 import numpy as np
-
-import matplotlib.pyplot as plt
-import seaborn as sns
+import altair as alt
 
 
 # Define function
 def f_heatmap(
         df_input,
-        v_features_to_show,
-        b_add_annotate     = True,
-        n_font_size        = 15
+        l_df_names,
+        b_add_corr    = True,
+        n_font_size   = 12,
+        n_canvas_size = 600
     ):
 
     """
@@ -29,17 +28,76 @@ def f_heatmap(
         <short description>.
     """
 
-    plt.rcParams['figure.figsize'] = (15, 15)
-    
-    df_cor = df_input[v_features_to_show].corr()
-    
-    m_matrix = np.triu(df_cor)
+    df_corr = (
+        
+        # Take subset of data.
+        df_input[l_df_names]
 
-    sns.heatmap(        
-        data      = df_cor,
-        annot     = b_add_annotate,
-        annot_kws = {'size': n_font_size},
-        square    = True,
-        cmap      = 'coolwarm',
-        mask      = m_matrix
-    );
+        # Calculate Pearson correlation coefficient
+        # between each variable in the subset.
+        .corr(method='pearson')#.round(2) # This is alternative to alt.Text('corr', format='.2f')
+
+        # Reset the index. By not dropping the index, 
+        # the original index becomes a column 
+        .reset_index(drop=False)
+
+        # Convert the correlation matrix into a
+        # long-form DataFrame
+        .melt('index')
+
+        # Rename columns for clarity
+        .rename(
+            columns={
+                'index':    'var1',
+                'variable': 'var2',
+                'value':    'corr'}
+        )
+    )
+
+    # Create the heatmap.
+    fig = alt.Chart(df_corr).mark_rect().encode(
+        x       = alt.X(
+            'var1',
+            axis = alt.Axis(
+                labelFontSize = n_font_size,
+                titleFontSize = n_font_size
+            )
+        ),
+        y       = alt.Y(
+            'var2',
+            axis = alt.Axis(
+                labelFontSize = n_font_size,
+                titleFontSize = n_font_size
+            )
+        ), 
+        color   = 'corr',
+        tooltip = ['var1', 'var2', alt.Text('corr', format='.2f')],
+    ).properties(
+        height = n_canvas_size,
+        width  = n_canvas_size,
+        title  = "Heatmap of Variable Correlations"
+    )
+
+    # Add text label layer with font color adjusted for visibility.
+    corr = fig.mark_text().encode(
+
+        text = alt.Text('corr', format='.2f'),  # Format text to show 2 decimal places
+
+        # Conditional color to ensure text visibility against the rect color.
+        color = alt.condition(
+            alt.datum.corr > 0.8, 
+            alt.value('white'),  # Use white text for high correlations for visibility
+            alt.value('black')   # Use black text for low correlations for visibility
+        )
+    )
+
+    if b_add_corr:
+
+        # Show heatmap and correlation values (text).
+        display(alt.layer(fig, corr))
+
+    else:
+
+        # Show only the heatmap, without the correlation values (text).
+        display(fig)
+
