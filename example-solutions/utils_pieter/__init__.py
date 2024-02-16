@@ -4,6 +4,9 @@ Author:     Pieter Overdevest
 Date:       2024-02-09
 """
 
+# Set version number
+__version__ = "1.0.0"
+
 # Import modules - By using this approach we can import the functions
 # in to the Jupyter Notebook. There is no need to refer to the module
 # name. We can state "from utils_pieter import f_info" and use the 
