@@ -55,7 +55,7 @@ def f_heatmap(
     )
 
     # Create the heatmap.
-    fig = alt.Chart(df_corr).mark_rect().encode(
+    alt1 = alt.Chart(df_corr).mark_rect().encode(
         x       = alt.X(
             'var1',
             axis = alt.Axis(
@@ -79,7 +79,7 @@ def f_heatmap(
     )
 
     # Add text label layer with font color adjusted for visibility.
-    corr = fig.mark_text().encode(
+    alt2 = alt1.mark_text().encode(
 
         text = alt.Text('corr', format='.2f'),  # Format text to show 2 decimal places
 
@@ -94,10 +94,10 @@ def f_heatmap(
     if b_add_corr:
 
         # Show heatmap and correlation values (text).
-        display(alt.layer(fig, corr))
+        display(alt.layer(alt1, alt2))
 
     else:
 
         # Show only the heatmap, without the correlation values (text).
-        display(fig)
+        display(alt1)
 
