@@ -131,6 +131,9 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# Data
+#*.pkl # Ik wil ze toch pushen zodat Ames Housing pickle files beshikbaar zijn in ML Explainers Pipeline en PCA.
+
 ###############
 # OS junk files
 ###############
