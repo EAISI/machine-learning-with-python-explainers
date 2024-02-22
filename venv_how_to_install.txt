@@ -1,0 +1,13 @@
+# Deactivate conda environment
+conda deactivate
+
+# Create virtual environment name 'macstudio' / 'macbook'
+/Users/macstudio/.pyenv/versions/3.10.13/bin/python3.10 -m venv venv_macstudio
+/Users/home/.pyenv/versions/3.10.13/bin/python3.10 -m venv venv_macbook
+
+# Activate virtual environment
+source venv_macstudio/bin/activate
+source venv_macbook/bin/activate
+
+# Install python modules
+python -m pip install -r requirements.txt
