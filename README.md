@@ -3,7 +3,7 @@
 This repository contains a set of notebooks used in the Data Science &amp; AI professional education courses at [EAISI](https://eaisi.tue.nl).
 ## example-solutions
 
-Notebooks with example solutions to the Ames Housing case, and the Pima Indians Diabetes case.
+Notebooks with example solutions to the Ames Housing case, and the Pima Indians Diabetes case
 ## ml-explainers
 
 Notebooks demonstrating principles of machine learning, such as overfitting, deconfounding, principal components analysis.
