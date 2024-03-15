@@ -12,5 +12,6 @@ pandas_profiling
 requests
 scikit-learn==1.2.2
 statsmodels==0.14.0
+umap-learn
 xgboost==1.7.4
 vega @ git+https://github.com/vega/ipyvega/@master
